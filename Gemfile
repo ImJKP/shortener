@@ -7,7 +7,10 @@ gem 'rails', '3.2.3'
 
 gem 'heroku'
 
-gem 'sqlite3'
+group :development  do
+	gem 'sqlite3'	
+end
+
 gem 'pg'
 
 

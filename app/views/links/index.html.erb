@@ -2,22 +2,24 @@
 
 <table>
   <tr>
-    <th>In url</th>
-    <th>Out url</th>
+    <th>Internal url</th>
+    <th>Outside url</th>
     <th>Http status</th>
     <th></th>
     <th></th>
     <th></th>
+    <th>Visit Count</th>
   </tr>
 
 <% @links.each do |link| %>
   <tr>
     <td><%= link.in_url %></td>
-    <td><%= link.out_url %></td>
+    <td><%= link_to link.out_url %></td>
     <td><%= link.http_status %></td>
     <td><%= link_to 'Show', link %></td>
     <td><%= link_to 'Edit', edit_link_path(link) %></td>
     <td><%= link_to 'Destroy', link, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link.visit_count %></td>
   </tr>
 <% end %>
 </table>
