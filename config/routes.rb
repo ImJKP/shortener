@@ -1,6 +1,14 @@
 Shortener::Application.routes.draw do
-  resources :links
-  match ':in_url' => 'links#go'
+
+  root :to => "links#index"
+
+  resources :links do
+    member do
+      get :go
+    end
+  end
+  
+  match ':short_path' => 'links#go'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

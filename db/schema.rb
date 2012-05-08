@@ -11,17 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120507030153) do
+ActiveRecord::Schema.define(:version => 20120508000438) do
 
   create_table "links", :force => true do |t|
-    t.string   "in_url"
-    t.text     "out_url"
-    t.integer  "http_status", :default => 301
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
-    t.integer  "visit_count", :default => 0
+    t.string   "short_path"
+    t.text     "original_url"
+    t.integer  "http_status",  :default => 301
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "visit_count",  :default => 0
   end
 
-  add_index "links", ["in_url"], :name => "index_links_on_in_url"
+  add_index "links", ["short_path"], :name => "index_links_on_in_url"
 
 end

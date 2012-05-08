@@ -1,4 +1,6 @@
 class LinksController < ApplicationController
+  before_filter :indecisive, :only => [:go] # Evaluate "indecisive" before "go" block
+  
   # GET /links
   # GET /links.json
   def index
@@ -41,12 +43,13 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = Link.new(params[:link])
-
+    silly = false
     respond_to do |format|
-      if @link.save
+      if @link.save && !(silly = @link.silly_length?(url_for(:root)))
         format.html { redirect_to @link, notice: 'Link was successfully created.' }
         format.json { render json: @link, status: :created, location: @link }
       else
+        @silly = silly
         format.html { render action: "new" }
         format.json { render json: @link.errors, status: :unprocessable_entity }
       end
@@ -81,10 +84,19 @@ class LinksController < ApplicationController
     end
   end
 
-  def go
-    @link = Link.find_by_in_url!(params[:in_url])
-    redirect_to @link.out_url, :status => @link.http_status
+
+      # check length of original URL
+        #if original length < shortened length, confirm we want to continue
+
+  def go  
     @link.visit_count = @link.visit_count + 1
     @link.save
+    redirect_to @link.original_url, :status => @link.http_status
   end
+
+  def indecisive
+    @link = Link.find_by_id(params[:id]) || Link.find_by_short_path(params[:short_path])
+  end
+
+
 end
