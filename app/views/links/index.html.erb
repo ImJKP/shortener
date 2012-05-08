@@ -1,9 +1,10 @@
+
 <h1>Listing links</h1>
 
 <table>
   <tr>
-    <th>Internal url</th>
-    <th>Outside url</th>
+    <th>Short Path</th>
+    <th>Original URL</th>
     <!-- <th>Http status</th> -->
     <th></th>
     <th></th>
@@ -17,7 +18,7 @@
     <td><%= link_to link.original_url %></td>
     <!-- <td><%= link.http_status %></td> -->
     <td><%= link_to 'Show', link %></td>
-    <td><%= link_to 'Edit', edit_link_path(link) %></td>
+    <!-- <td><%= link_to 'Edit', edit_link_path(link) %></td> -->
     <td><%= link_to 'Destroy', link, confirm: 'Are you sure?', method: :delete %></td>
     <td><%= link.visit_count %></td>
   </tr>
@@ -29,3 +30,21 @@
 <%= link_to 'New Link', new_link_path %>
 
 <br />
+
+<br />
+
+<h2>Recently Created</h2>
+<br />
+<table>
+<% Link.recently_created.reverse.each do |link| %>
+<tr>
+    <td><%= link_to link.short_path, go_link_path(link) %></td>
+    <td><%= link_to link.original_url %></td>
+    <!-- <td><%= link.http_status %></td> -->
+    <td><%= link_to 'Show', link %></td>
+    <!-- <td><%= link_to 'Edit', edit_link_path(link) %></td> -->
+    <td><%= link_to 'Destroy', link, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link.visit_count %></td>
+  </tr>
+<% end %>
+</table>

@@ -35,9 +35,9 @@ class LinksController < ApplicationController
   end
 
   # GET /links/1/edit
-  def edit
-    @link = Link.find(params[:id])
-  end
+#  def edit
+#    @link = Link.find(params[:id])
+#  end
 
   # POST /links
   # POST /links.json

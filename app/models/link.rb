@@ -21,7 +21,7 @@ class Link < ActiveRecord::Base
   end
 
   def self.next_available_short_path(num_attempts = 0, n = nil)
-    attempt = random_string(30)#n)
+    attempt = random_string(n)
     while where(:short_path => attempt).exists? || num_attempts > 5
        next_available_short_path(num_attempts + 1, n) 
     end
@@ -47,6 +47,14 @@ class Link < ActiveRecord::Base
 
   def silly_length?(base_path)
     original_url.length < (base_path << short_path).length # find cleaner way for rails to tell me root url
+  end
+
+  def same_original_url
+    Link.where(:original_url => original_url)
+  end
+
+  def self.recently_created
+    Link.last(5)
   end
 
 end

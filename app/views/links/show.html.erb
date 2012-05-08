@@ -1,20 +1,23 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>In url:</b>
+  <b>Short path:</b>
   <%= @link.short_path %>
 </p>
 
 <p>
-  <b>Out url:</b>
+  <b>Original URL:</b>
   <%= @link.original_url %>
 </p>
 
-<p>
-  <b>Http status:</b>
-  <%= @link.http_status %>
-</p>
+<h2>Fun Stuff</h2>
 
+<p>This short path has been followed <%= pluralize(@link.visit_count, "time") %>.</p>
+<p>Link shortened <%= time_ago_in_words(@link.created_at) %> ago at <%= @link.created_at.strftime('%l:%M%p on %B %e, %Y') %>.</p> <!-- Want to add  -->
+<p>This URL has been shortened <%= pluralize(@link.same_original_url.count, "time") %>.</p>
 
-<%= link_to 'Edit', edit_link_path(@link) %> |
-<%= link_to 'Back', links_path %>
+<br />
+
+<!-- <%= link_to 'Edit', edit_link_path(@link) %> -->
+<%= link_to 'Back to Index', links_path %>
+
