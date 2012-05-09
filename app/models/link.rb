@@ -2,7 +2,7 @@ class Link < ActiveRecord::Base
   attr_accessible :http_status, :short_path, :original_url, :visit_count
 
   validates :short_path, :original_url, :http_status, :presence => true
-  validates :short_path, :uniqueness => true
+  validates :short_path, :uniqueness => true #adding a message here breaks things?
 
   validates_format_of :original_url, :with => /^(http|https|ftp):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
   validates_format_of :short_path, :with => /\w/
@@ -48,6 +48,17 @@ class Link < ActiveRecord::Base
   def silly_length?(base_path)
     original_url.length < (base_path << short_path).length # find cleaner way for rails to tell me root url
   end
+
+#  def original_domain
+#    if original_url.starts_with?('http://')
+#      stripped_url = original_url[7..-1]
+#    elseif original_url.starts_with?('https://')
+#      stripped_url = original_url[8..-1]
+#    elseif original_url.starts_with?('ftp://')
+#      stripped_url = original_url[6..-1]
+#    end
+#    PublicSuffix.parse(stripped_url).domain
+#  end
 
   def same_original_url
     Link.where(:original_url => original_url)

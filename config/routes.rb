@@ -1,6 +1,6 @@
 Shortener::Application.routes.draw do
 
-  root :to => "links#index"
+  root :to => "links#new"
 
   resources :links do
     member do

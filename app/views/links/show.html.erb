@@ -14,8 +14,12 @@
 
 <p>This short path has been followed <%= pluralize(@link.visit_count, "time") %>.</p>
 <p>Link shortened <%= time_ago_in_words(@link.created_at) %> ago at <%= @link.created_at.strftime('%l:%M%p on %B %e, %Y') %>.</p> <!-- Want to add  -->
-<p>This URL has been shortened <%= pluralize(@link.same_original_url.count, "time") %>.</p>
 
+<% if @link.same_original_url.count == 1 %>
+  <p>This is the first time this URL has been shortened.</p>
+<% else %>
+  <p>This URL has been shortened <%= pluralize(@link.same_original_url.count - 1, "other time") %>.</p>
+<% end %>
 <br />
 
 <!-- <%= link_to 'Edit', edit_link_path(@link) %> -->
